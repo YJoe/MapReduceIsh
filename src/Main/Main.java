@@ -9,19 +9,23 @@ import java.util.ArrayList;
 //   and the flight times.
 // - Calculate the number of passengers on each flight.
 
-
 public class Main {
     public static void main(String[] args){
 
+        // define the files to use
         ArrayList<String> fileDirectories = new ArrayList<String>() {{
             add("/AComp_Passenger_data.csv");
             add("/Top30_airports_LatLong.csv");
         }};
 
+        // open the files into a shiny object
         CSVReader passengerData = new CSVReader(fileDirectories.get(0));
         CSVReader airportData = new CSVReader(fileDirectories.get(1));
+
+        int pileCount = 4;
+        passengerData.splitDataToPiles(pileCount);
+
         passengerData.printData();
-        airportData.printData();
 
 //        SomeLoop sl1 = new SomeLoop("tag1", 4, 6);
 //        SomeLoop sl2 = new SomeLoop("tag2", 2, 5);
