@@ -15,10 +15,17 @@ public class Node extends Thread{
     }
 
     private void validateData(){
-        for(int i = 0; i < validationList.size(); i++){
-            for(int j = 0; j < pile.size(); j++){
-                System.out.println("[" + tag + "] is this valid against regex? [" + pile.get(j).get(i) + "] [" + validationList.get(i) + "]");
+        for(int i = 0; i < pile.size(); i++){
+            String message = "[" + tag + "] Validating set\n";
+            message += "\t" + pile.get(i) + "\n\t";
+            for(int j = 0; j < validationList.size(); j++){
+                if(pile.get(i).get(j).matches(validationList.get(j))){
+                    message += "-";
+                } else{
+                    message += "_";
+                }
             }
+            System.out.println(message);
         }
     }
 

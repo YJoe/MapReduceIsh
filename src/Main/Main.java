@@ -30,7 +30,7 @@ public class Main {
         CSVReader passengerData = new CSVReader(fileDirectories.get(0));
         CSVReader airportData = new CSVReader(fileDirectories.get(1));
 
-        int pileCount = 4;
+        int pileCount = 2;
         passengerData.splitDataToPiles(pileCount);
         passengerData.printData();
 
@@ -39,23 +39,12 @@ public class Main {
         ArrayList<Node> nodes = new ArrayList<>();
         ArrayList<String> passengerValidation = new ArrayList<>();
 
-        // regex for the passenger id
-        passengerValidation.add("somoe regex0");
-
-        // regex for the flight id
-        passengerValidation.add("somoe regex1");
-
-        // regex for the start airport IATA code
-        passengerValidation.add("^\\w{3}\\b");
-
-        // regex for the destination IATA code
-        passengerValidation.add("^\\w{3}\\b");
-
-        // regex for the departure time
-        passengerValidation.add("somoe regex4");
-
-        // regex for the total flight time
-        passengerValidation.add("somoe regex5");
+        passengerValidation.add("somoe regex0"); // passenger id
+        passengerValidation.add("somoe regex1"); // flight id
+        passengerValidation.add("^\\w{3}\\b"); // IATA, does this need to enforce cAsE?
+        passengerValidation.add("^\\w{3}\\b"); // IATA
+        passengerValidation.add("somoe regex4"); // departure time
+        passengerValidation.add("somoe regex5"); // flight time
 
         // create a new node for each pile of data passing the pile and the validation for that data
         for(int i = 0; i < pileCount; i++){
