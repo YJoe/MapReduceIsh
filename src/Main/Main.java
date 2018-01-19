@@ -13,42 +13,44 @@ import Node.Node;
 public class Main {
     public static void main(String[] args){
 
-//        String IATAreg = "^\\w{3}\\b";
-//        if ("erhf".matches(IATAreg)){
-//            System.out.println("Yep");
-//        } else {
-//            System.out.println("narp");
-//        }
-
         // define the files to use
         ArrayList<String> fileDirectories = new ArrayList<String>() {{
             add("/AComp_Passenger_data.csv");
             add("/Top30_airports_LatLong.csv");
         }};
 
+        // define map keys
+        ArrayList<String> keys = new ArrayList<String>() {{
+            add("passenger_id");
+            add("flight_id");
+            add("start_iata");
+            add("end_iata");
+            add("departure_time");
+            add("flight_time");
+        }};
+
         // open the files into a shiny object
         CSVReader passengerData = new CSVReader(fileDirectories.get(0));
         CSVReader airportData = new CSVReader(fileDirectories.get(1));
 
-        int pileCount = 2;
+        int pileCount = 20;
         passengerData.splitDataToPiles(pileCount);
         passengerData.printData();
 
         System.out.println("Creating nodes");
-
         ArrayList<Node> nodes = new ArrayList<>();
         ArrayList<String> passengerValidation = new ArrayList<>();
 
-        passengerValidation.add("somoe regex0"); // passenger id
-        passengerValidation.add("somoe regex1"); // flight id
-        passengerValidation.add("^\\w{3}\\b"); // IATA, does this need to enforce cAsE?
-        passengerValidation.add("^\\w{3}\\b"); // IATA
-        passengerValidation.add("somoe regex4"); // departure time
-        passengerValidation.add("somoe regex5"); // flight time
+        passengerValidation.add("[A-Z]{3}\\d{4}[A-Z]{2}\\d"); // passenger id
+        passengerValidation.add("[A-Z]{3}\\d{4}[A-Z]"); // flight id
+        passengerValidation.add("[A-Z]{3}"); // IATA
+        passengerValidation.add("[A-Z]{3}"); // IATA
+        passengerValidation.add("\\d{10}"); // departure time
+        passengerValidation.add("\\d{1,4}"); // flight time
 
         // create a new node for each pile of data passing the pile and the validation for that data
         for(int i = 0; i < pileCount; i++){
-            nodes.add(new Node("NODE" + i, passengerData.splitData.get(i), passengerValidation));
+            nodes.add(new Node("NODE" + i, keys, passengerData.splitData.get(i), passengerValidation));
         }
 
         // start all node threads, starting the validation process
@@ -64,25 +66,5 @@ public class Main {
                 e.printStackTrace();
             }
         }
-
-        System.out.println("Validation across piles complete");
-
-//        SomeLoop sl1 = new SomeLoop("tag1", 4, 6);
-//        SomeLoop sl2 = new SomeLoop("tag2", 2, 5);
-//        sl1.start();
-//        sl2.start();
-//
-//        try {
-//            sl1.join();
-//            sl2.join();
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//
-//        System.out.println(sl1.getState());
-//        System.out.println(sl1.getResult());
-//
-//        System.out.println(sl2.getState());
-//        System.out.println(sl2.getResult());
     }
 }
