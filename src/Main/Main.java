@@ -3,6 +3,7 @@ package Main;
 import Mapper.AirportMapper;
 import Mapper.PassengerMapper;
 import Reader.CSVReader;
+import Node.Node;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -49,24 +50,11 @@ public class Main {
             airportMappedData.addAll(airportMappers.get(i).getData());
         }
 
-        for (int i = 0; i < passengerMappedData.size(); i++) {
-            System.out.println(passengerMappedData.get(i));
-        }
+        Node<String, String> passengerNode = new Node<>(passengerMappedData);
+        Node<String, String> airportNode = new Node<>(airportMappedData);
 
-        for (int i = 0; i < airportMappedData.size(); i++) {
-            System.out.println(airportMappedData.get(i));
-        }
+        passengerNode.joinOn(airportNode, "start_iata", "iata");
 
-
-
-//        // both lists should now just contain one node, merge them on a key
-//        passengerNodes.get(0).mergeNodeOnKey(airportNodes.get(0), "start_iata", "iata");
-//        Node mergedNode = passengerNodes.get(0);
-//
-//        // look at the merged node
-//        for(int i = 0; i < mergedNode.mappedPile.size(); i++){
-//            System.out.println(mergedNode.mappedPile.get(i));
-//        }
-
+        ArrayList<Node<String, String>> nodes = passengerNode.splitData(20);
     }
 }
