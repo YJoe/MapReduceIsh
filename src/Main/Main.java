@@ -1,8 +1,10 @@
 package Main;
 
+import Mapper.AirportMapper;
+import Mapper.PassengerMapper;
 import Reader.CSVReader;
 import java.util.ArrayList;
-import Node.Node;
+import java.util.HashMap;
 
 // - Determine the number of flights from each airport; include a list of any airports not used.
 // - Create a list of flights based on the Flight id, this output should include the passenger Id, relevant
@@ -11,60 +13,60 @@ import Node.Node;
 // - Calculate the number of passengers on each flight.
 
 public class Main {
-    public static void main(String[] args){
 
-        // define the files to use
-        ArrayList<String> fileDirectories = new ArrayList<String>() {{
-            add("/AComp_Passenger_data.csv");
-            add("/Top30_airports_LatLong.csv");
-        }};
+    public static void main(String[] args) {
 
-        // define map keys
-        ArrayList<String> keys = new ArrayList<String>() {{
-            add("passenger_id");
-            add("flight_id");
-            add("start_iata");
-            add("end_iata");
-            add("departure_time");
-            add("flight_time");
-        }};
+        // the data we want to read in can be string
+        CSVReader<String> passengerReader = new CSVReader<>("/AComp_Passenger_data.csv");
+        CSVReader<String> airportReader = new CSVReader<>("/Top30_airports_LatLong.csv");
 
-        // open the files into a shiny object
-        CSVReader passengerData = new CSVReader(fileDirectories.get(0));
-        CSVReader airportData = new CSVReader(fileDirectories.get(1));
+        // get x amount of groups of each data sets
+        int splitCount = 4;
+        ArrayList<ArrayList<ArrayList<String>>> passengerData = passengerReader.splitDataToPiles(splitCount);
+        ArrayList<ArrayList<ArrayList<String>>> airportData = airportReader.splitDataToPiles(splitCount);
 
-        int pileCount = 20;
-        passengerData.splitDataToPiles(pileCount);
-        passengerData.printData();
-
-        System.out.println("Creating nodes");
-        ArrayList<Node> nodes = new ArrayList<>();
-        ArrayList<String> passengerValidation = new ArrayList<>();
-
-        passengerValidation.add("[A-Z]{3}\\d{4}[A-Z]{2}\\d"); // passenger id
-        passengerValidation.add("[A-Z]{3}\\d{4}[A-Z]"); // flight id
-        passengerValidation.add("[A-Z]{3}"); // IATA
-        passengerValidation.add("[A-Z]{3}"); // IATA
-        passengerValidation.add("\\d{10}"); // departure time
-        passengerValidation.add("\\d{1,4}"); // flight time
-
-        // create a new node for each pile of data passing the pile and the validation for that data
-        for(int i = 0; i < pileCount; i++){
-            nodes.add(new Node("NODE" + i, keys, passengerData.splitData.get(i), passengerValidation));
+        // create and start mapping threads
+        ArrayList<PassengerMapper> passengerMappers = new ArrayList<>();
+        ArrayList<AirportMapper> airportMappers = new ArrayList<>();
+        for (int i = 0; i < splitCount; i++) {
+            passengerMappers.add(new PassengerMapper(passengerData.get(i)));
+            passengerMappers.get(passengerMappers.size() - 1).start();
+            airportMappers.add(new AirportMapper(airportData.get(i)));
+            airportMappers.get(airportMappers.size() - 1).start();
         }
 
-        // start all node threads, starting the validation process
-        for(int i = 0; i < nodes.size(); i++){
-            nodes.get(i).start();
-        }
-
-        // halt the main thread until all nodes have been joined
-        for(int i = 0; i < nodes.size(); i++){
+        // join mapper threads and get the validated data
+        ArrayList<HashMap<String, String>> passengerMappedData = new ArrayList<>();
+        ArrayList<HashMap<String, String>> airportMappedData = new ArrayList<>();
+        for (int i = 0; i < splitCount; i++) {
             try {
-                nodes.get(i).join();
+                passengerMappers.get(i).join();
+                airportMappers.get(i).join();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            passengerMappedData.addAll(passengerMappers.get(i).getData());
+            airportMappedData.addAll(airportMappers.get(i).getData());
         }
+
+        for (int i = 0; i < passengerMappedData.size(); i++) {
+            System.out.println(passengerMappedData.get(i));
+        }
+
+        for (int i = 0; i < airportMappedData.size(); i++) {
+            System.out.println(airportMappedData.get(i));
+        }
+
+
+
+//        // both lists should now just contain one node, merge them on a key
+//        passengerNodes.get(0).mergeNodeOnKey(airportNodes.get(0), "start_iata", "iata");
+//        Node mergedNode = passengerNodes.get(0);
+//
+//        // look at the merged node
+//        for(int i = 0; i < mergedNode.mappedPile.size(); i++){
+//            System.out.println(mergedNode.mappedPile.get(i));
+//        }
+
     }
 }

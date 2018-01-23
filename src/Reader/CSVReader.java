@@ -4,19 +4,21 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class CSVReader {
-    public ArrayList<ArrayList<String>> data;
-    public ArrayList<ArrayList<ArrayList<String>>> splitData;
-    public boolean dataHasBeenSplit;
+public class CSVReader <T>{
+    private ArrayList<ArrayList<T>> data;
+    private ArrayList<ArrayList<String>> stringData;
+    private ArrayList<ArrayList<ArrayList<T>>> splitData;
+    private boolean dataHasBeenSplit;
 
     public CSVReader(String directory){
         data = new ArrayList<>();
+        stringData = new ArrayList<>();
         splitData = new ArrayList<>();
         dataHasBeenSplit = false;
         readCSVLSVAsArrayList(directory);
     }
 
-    public void readCSVLSVAsArrayList(String fileDirectory){
+    private void readCSVLSVAsArrayList(String fileDirectory){
         System.out.println("Reading data from [" + fileDirectory + "]");
 
         // read the file as a scanner
@@ -24,15 +26,20 @@ public class CSVReader {
 
         // while there is a line to read
         while (s.hasNext()){
-            data.add(new ArrayList<>(Arrays.asList(s.nextLine().split(","))));
+            stringData.add(new ArrayList<>(Arrays.asList(s.nextLine().split(","))));
+            data.add(new ArrayList<>());
+
+            for(int i = 0; i < stringData.get(stringData.size() - 1).size(); i++){
+                data.get(data.size() - 1).add((T)stringData.get(stringData.size() - 1).get(i));
+            }
         }
     }
 
-    public void splitDataToPiles(int pileCount){
+    public ArrayList<ArrayList<ArrayList<T>>> splitDataToPiles(int pileCount){
         System.out.println("Splitting data");
         if (dataHasBeenSplit){
             System.out.println("\tData has already been split");
-            return;
+            throw new Error("Data has already been split");
         }
         System.out.println("\tsplitting data into [" + pileCount + "] piles");
         System.out.println("\tdata size [" + data.size() + "]");
@@ -60,12 +67,8 @@ public class CSVReader {
             splitData.get(i).add(data.get(dataIndex++));
         }
 
-        //System.out.println("\tdata has been split into [" + splitData.size() + "] piles");
-        //for(int i = 0; i < splitData.size(); i++){
-        //    System.out.println("\tpile [" + i + "] has [" + splitData.get(i).size() + "] elements in it");
-        //}
-
         dataHasBeenSplit = true;
+        return splitData;
     }
 
     public void printData(){
