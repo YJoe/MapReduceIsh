@@ -84,11 +84,26 @@ public class Node<K, V> {
             splitNodes.get(i).data.add(data.get(dataIndex++));
         }
 
-        // print for fun
-        for(int i = 0; i < splitNodes.size(); i++){
-            System.out.println(splitNodes.get(i).data.size());
-        }
-
         return splitNodes;
+    }
+
+//    public ArrayList<Node<K, V>> shuffleData(K key){
+//
+//        ArrayList<HashMap<K, V>> splitHash = new ArrayList<>();
+//
+//        for(int i = 0; i < data.size(); i++){
+//
+//            // check if the key has already been found
+//            boolean found = false;
+//
+//        }
+//
+//        return splitNodes;
+//    }
+
+    public void printData(){
+        for(int i = 0; i < data.size(); i++){
+            System.out.println(data.get(i));
+        }
     }
 }

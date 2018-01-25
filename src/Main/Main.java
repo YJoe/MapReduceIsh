@@ -1,9 +1,13 @@
 package Main;
 
+import Implement.PassengerCountMapper;
+import Implement.PassengerCountReducer;
+import Implement.Shuffler;
 import Mapper.AirportMapper;
 import Mapper.PassengerMapper;
 import Reader.CSVReader;
-import Node.Node;
+import javafx.util.Pair;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -37,8 +41,8 @@ public class Main {
         }
 
         // join mapper threads and get the validated data
-        ArrayList<HashMap<String, String>> passengerMappedData = new ArrayList<>();
-        ArrayList<HashMap<String, String>> airportMappedData = new ArrayList<>();
+        ArrayList<ArrayList<HashMap<String, String>>> passengerMappedData = new ArrayList<>();
+        ArrayList<ArrayList<HashMap<String, String>>> airportMappedData = new ArrayList<>();
         for (int i = 0; i < splitCount; i++) {
             try {
                 passengerMappers.get(i).join();
@@ -46,15 +50,49 @@ public class Main {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            passengerMappedData.addAll(passengerMappers.get(i).getData());
-            airportMappedData.addAll(airportMappers.get(i).getData());
+            passengerMappedData.add(passengerMappers.get(i).getData());
+            airportMappedData.add(airportMappers.get(i).getData());
         }
 
-        Node<String, String> passengerNode = new Node<>(passengerMappedData);
-        Node<String, String> airportNode = new Node<>(airportMappedData);
+        ////////////////////////////////////////////////////////////////////////////////////////////////
 
-        passengerNode.joinOn(airportNode, "start_iata", "iata");
+        // start passenger count mapper threads
+        ArrayList<PassengerCountMapper> passengerCountMappers = new ArrayList<>();
+        for (ArrayList<HashMap<String, String>> aPassengerMappedData : passengerMappedData) {
+            passengerCountMappers.add(new PassengerCountMapper(aPassengerMappedData));
+            passengerCountMappers.get(passengerCountMappers.size() - 1).start();
+        }
 
-        ArrayList<Node<String, String>> nodes = passengerNode.splitData(20);
+        // join passenger count mapper threads
+        ArrayList<Pair<String, Integer>> allPassengerMapOutput = new ArrayList<>();
+        for (int i = 0; i < passengerCountMappers.size(); i++) {
+            try { passengerCountMappers.get(passengerCountMappers.size() - 1).join(); }
+            catch (InterruptedException e) { e.printStackTrace(); }
+            allPassengerMapOutput.addAll(passengerCountMappers.get(i).getData());
+        }
+
+        // shuffle outputs
+        Shuffler<String, Integer> shuffler = new Shuffler<>();
+        shuffler.shuffle(allPassengerMapOutput);
+
+        //
+        ArrayList<PassengerCountReducer> reducers = new ArrayList<>();
+        for(int i = 0; i < shuffler.output.size(); i++){
+            reducers.add(new PassengerCountReducer(shuffler.output.get(i)));
+            reducers.get(reducers.size() - 1).start();
+        }
+
+        //
+        ArrayList<Pair<String, Integer>> reducedValues = new ArrayList<>();
+        for(int i = 0; i < reducers.size(); i++){
+            try { reducers.get(i).join(); }
+            catch (InterruptedException e) { e.printStackTrace(); }
+            reducedValues.add(reducers.get(i).getOutput());
+        }
+
+        //
+        for(int i = 0; i < reducedValues.size(); i++){
+            System.out.println(reducedValues.get(i));
+        }
     }
 }
