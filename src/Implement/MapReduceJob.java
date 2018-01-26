@@ -6,25 +6,25 @@ import javafx.util.Pair;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class MapReduceJob<K, V1, V2> {
+public class MapReduceJob<I1, I2, O1, O2, O3> {
 
     public MapReduceJob() {
     }
 
-    public ArrayList<Pair<V1, V2>> execute(ArrayList<ArrayList<HashMap<K, V1>>> input,
-                        Class<? extends Mapper<K, V1, V2>> mapper,
-                        Class<? extends Reducer<V1, V2>> reducer)
+    public ArrayList<Pair<O1, O3>> execute(ArrayList<ArrayList<HashMap<I1, I2>>> input,
+                        Class<? extends Mapper<I1, I2, O1, O2>> mapper,
+                        Class<? extends Reducer<O1, O2, O3>> reducer)
             throws IllegalAccessException, InstantiationException {
 
         // define containers for threads and output values
-        ArrayList<Mapper<K, V1, V2>> mappers = new ArrayList<>();
-        ArrayList<Combiner<V1, V2>> combiners = new ArrayList<>();
-        ArrayList<Reducer<V1, V2>> reducers = new ArrayList<>();
-        ArrayList<Pair<V1, ArrayList<V2>>> combinerOutput = new ArrayList<>();
-        ArrayList<Pair<V1, V2>> reducedValues = new ArrayList<>();
+        ArrayList<Mapper<I1, I2, O1, O2>> mappers = new ArrayList<>();
+        ArrayList<Combiner<O1, O2>> combiners = new ArrayList<>();
+        ArrayList<Reducer<O1, O2, O3>> reducers = new ArrayList<>();
+        ArrayList<Pair<O1, ArrayList<O2>>> combinerOutput = new ArrayList<>();
+        ArrayList<Pair<O1, O3>> reducedValues = new ArrayList<>();
 
         // create and start mapping threads
-        for (ArrayList<HashMap<K, V1>> anInput : input) {
+        for (ArrayList<HashMap<I1, I2>> anInput : input) {
             mappers.add(mapper.newInstance());
             mappers.get(mappers.size() - 1).input = anInput;
             mappers.get(mappers.size() - 1).start();
@@ -39,14 +39,14 @@ public class MapReduceJob<K, V1, V2> {
         }
 
         // join combiner threads
-        for (Combiner<V1, V2> combiner : combiners) {
+        for (Combiner<O1, O2> combiner : combiners) {
             try { combiner.join(); }
             catch (InterruptedException e) { e.printStackTrace(); }
             combinerOutput.addAll(combiner.getOutput());
         }
 
         // shuffle outputs
-        Shuffler<V1, V2> shuffler = new Shuffler<>();
+        Shuffler<O1, O2> shuffler = new Shuffler<>();
         shuffler.shuffle(combinerOutput);
 
         // for all shuffled elements start a reducer thread

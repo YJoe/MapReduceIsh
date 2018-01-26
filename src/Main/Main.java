@@ -1,8 +1,10 @@
 package Main;
 
 import Implement.MapReduceJob;
-import Implement.Objective1.PassengerCountMapper;
-import Implement.Objective1.PassengerCountReducer;
+import Implement.Objective1.FlightCountMapper;
+import Implement.Objective1.FlightCountReducer;
+import Implement.Objective3.PassengerCountMapper;
+import Implement.Objective3.PassengerCountReducer;
 import Mapper.AirportMapper;
 import Mapper.PassengerMapper;
 import Reader.CSVReader;
@@ -54,17 +56,33 @@ public class Main {
             airportMappedData.add(airportMappers.get(i).getData());
         }
 
-        ////////////////////////////////////////////////////////////////////////////////////////////////
-        MapReduceJob<String, String, Integer> m = new MapReduceJob<>();
-        ArrayList<Pair<String, Integer>> results = new ArrayList<>();
-        try {
-            results = m.execute(passengerMappedData, PassengerCountMapper.class, PassengerCountReducer.class);
-        } catch (IllegalAccessException | InstantiationException e) {
-            e.printStackTrace();
-        }
+        int objective = 1;
 
-        for (Pair<String, Integer> result : results) {
-            System.out.println(result);
+        if(objective == 1){
+            MapReduceJob<String, String, String, String, Integer> m = new MapReduceJob<>();
+            ArrayList<Pair<String, Integer>> results = new ArrayList<>();
+            try {
+                results = m.execute(passengerMappedData, FlightCountMapper.class, FlightCountReducer.class);
+            } catch (IllegalAccessException | InstantiationException e) {
+                e.printStackTrace();
+            }
+
+            for (Pair<String, Integer> result : results) {
+                System.out.println(result);
+            }
+        }
+        else if(objective == 3){
+            MapReduceJob<String, String, String, Integer, Integer> m = new MapReduceJob<>();
+            ArrayList<Pair<String, Integer>> results = new ArrayList<>();
+            try {
+                results = m.execute(passengerMappedData, PassengerCountMapper.class, PassengerCountReducer.class);
+            } catch (IllegalAccessException | InstantiationException e) {
+                e.printStackTrace();
+            }
+
+            for (Pair<String, Integer> result : results) {
+                System.out.println(result);
+            }
         }
     }
 }

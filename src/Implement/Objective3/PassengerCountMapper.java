@@ -1,15 +1,11 @@
-package Implement.Objective1;
+package Implement.Objective3;
 
 import Abstract.Mapper;
 import javafx.util.Pair;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class PassengerCountMapper extends Mapper<String, String, Integer> {
-
-    public PassengerCountMapper() {
-        output = new ArrayList<>();
-    }
+public class PassengerCountMapper extends Mapper<String, String, String, Integer> {
 
     @Override
     public void map() {
