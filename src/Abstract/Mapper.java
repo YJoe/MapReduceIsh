@@ -1,11 +1,16 @@
 package Abstract;
 
-public abstract class Mapper<I, O> extends Thread{
-    protected O output;
-    protected I input;
+import javafx.util.Pair;
 
-    public Mapper(I input){
-        this.input = input;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+public abstract class Mapper<K, V1, V2> extends Thread{
+    public ArrayList<HashMap<K, V1>> input;
+    protected ArrayList<Pair<V1, V2>> output;
+
+    public Mapper(){
+
     }
 
     @Override
@@ -16,7 +21,7 @@ public abstract class Mapper<I, O> extends Thread{
 
     protected abstract void map();
 
-    public O getData(){
+    public ArrayList<Pair<V1, V2>> getData(){
         return output;
     }
 }

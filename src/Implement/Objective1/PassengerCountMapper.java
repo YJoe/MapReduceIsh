@@ -1,14 +1,13 @@
-package Implement;
+package Implement.Objective1;
 
 import Abstract.Mapper;
 import javafx.util.Pair;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class PassengerCountMapper extends Mapper<ArrayList<HashMap<String, String>>, ArrayList<Pair<String, Integer>>> {
+public class PassengerCountMapper extends Mapper<String, String, Integer> {
 
-    public PassengerCountMapper(ArrayList<HashMap<String, String>> input) {
-        super(input);
+    public PassengerCountMapper() {
         output = new ArrayList<>();
     }
 

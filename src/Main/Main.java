@@ -1,8 +1,8 @@
 package Main;
 
-import Implement.PassengerCountMapper;
-import Implement.PassengerCountReducer;
-import Implement.Shuffler;
+import Implement.MapReduceJob;
+import Implement.Objective1.PassengerCountMapper;
+import Implement.Objective1.PassengerCountReducer;
 import Mapper.AirportMapper;
 import Mapper.PassengerMapper;
 import Reader.CSVReader;
@@ -55,44 +55,16 @@ public class Main {
         }
 
         ////////////////////////////////////////////////////////////////////////////////////////////////
-
-        // start passenger count mapper threads
-        ArrayList<PassengerCountMapper> passengerCountMappers = new ArrayList<>();
-        for (ArrayList<HashMap<String, String>> aPassengerMappedData : passengerMappedData) {
-            passengerCountMappers.add(new PassengerCountMapper(aPassengerMappedData));
-            passengerCountMappers.get(passengerCountMappers.size() - 1).start();
+        MapReduceJob<String, String, Integer> m = new MapReduceJob<>();
+        ArrayList<Pair<String, Integer>> results = new ArrayList<>();
+        try {
+            results = m.execute(passengerMappedData, PassengerCountMapper.class, PassengerCountReducer.class);
+        } catch (IllegalAccessException | InstantiationException e) {
+            e.printStackTrace();
         }
 
-        // join passenger count mapper threads
-        ArrayList<Pair<String, Integer>> allPassengerMapOutput = new ArrayList<>();
-        for (int i = 0; i < passengerCountMappers.size(); i++) {
-            try { passengerCountMappers.get(passengerCountMappers.size() - 1).join(); }
-            catch (InterruptedException e) { e.printStackTrace(); }
-            allPassengerMapOutput.addAll(passengerCountMappers.get(i).getData());
-        }
-
-        // shuffle outputs
-        Shuffler<String, Integer> shuffler = new Shuffler<>();
-        shuffler.shuffle(allPassengerMapOutput);
-
-        //
-        ArrayList<PassengerCountReducer> reducers = new ArrayList<>();
-        for(int i = 0; i < shuffler.output.size(); i++){
-            reducers.add(new PassengerCountReducer(shuffler.output.get(i)));
-            reducers.get(reducers.size() - 1).start();
-        }
-
-        //
-        ArrayList<Pair<String, Integer>> reducedValues = new ArrayList<>();
-        for(int i = 0; i < reducers.size(); i++){
-            try { reducers.get(i).join(); }
-            catch (InterruptedException e) { e.printStackTrace(); }
-            reducedValues.add(reducers.get(i).getOutput());
-        }
-
-        //
-        for(int i = 0; i < reducedValues.size(); i++){
-            System.out.println(reducedValues.get(i));
+        for (Pair<String, Integer> result : results) {
+            System.out.println(result);
         }
     }
 }

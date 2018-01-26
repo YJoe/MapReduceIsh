@@ -1,12 +1,14 @@
 package Abstract;
 
-public abstract class Reducer<I, O> extends Thread{
-    protected I input;
-    protected O output;
+import javafx.util.Pair;
 
-    public Reducer(I input){
-        this.input = input;
-    }
+import java.util.ArrayList;
+
+public abstract class Reducer<K, V> extends Thread{
+    public Pair<K, ArrayList<V>> input;
+    protected Pair<K, V> output;
+
+    public Reducer(){}
 
     @Override
     public void run(){
@@ -15,7 +17,7 @@ public abstract class Reducer<I, O> extends Thread{
 
     public abstract void reduce();
 
-    public O getOutput(){
+    public Pair<K, V> getOutput(){
         return output;
     }
 }

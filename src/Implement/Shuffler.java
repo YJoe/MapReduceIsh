@@ -4,9 +4,9 @@ import javafx.util.Pair;
 import java.util.ArrayList;
 
 public class Shuffler<K, V>{
-    public ArrayList<ArrayList<Pair<K, V>>> output;
+    public ArrayList<Pair<K, ArrayList<V>>> output;
 
-    public ArrayList<ArrayList<Pair<K, V>>> shuffle(ArrayList<Pair<K, V>> input) {
+    public void shuffle(ArrayList<Pair<K, ArrayList<V>>> input) {
         output = new ArrayList<>();
         ArrayList<K> seenKeys = new ArrayList<>();
 
@@ -15,18 +15,15 @@ public class Shuffler<K, V>{
             for(int j = 0; j < seenKeys.size(); j++){
                 if(seenKeys.get(j).equals(input.get(i).getKey())){
                     foundIndex = j;
-                    output.get(j).add(input.get(i));
+                    output.get(j).getValue().addAll(input.get(i).getValue());
                     break;
                 }
             }
 
             if(foundIndex < 0){
                 seenKeys.add(input.get(i).getKey());
-                output.add(new ArrayList<>());
-                output.get(output.size() - 1).add(input.get(i));
+                output.add(new Pair<>(input.get(i).getKey(), input.get(i).getValue()));
             }
         }
-
-        return output;
     }
 }
