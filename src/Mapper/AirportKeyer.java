@@ -3,10 +3,10 @@ package Mapper;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class AirportMapper extends Mapper<String, String> {
+public class AirportKeyer extends Keyer<String, String> {
     private ArrayList<String> regexRules;
 
-    public AirportMapper(ArrayList<ArrayList<String>> data) {
+    public AirportKeyer(ArrayList<ArrayList<String>> data) {
         this.data = data;
         mappingKeys = new ArrayList<String>() {{
             add("airpot_name");

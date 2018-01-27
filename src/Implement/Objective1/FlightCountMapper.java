@@ -4,7 +4,7 @@ import Abstract.Mapper;
 import javafx.util.Pair;
 import java.util.HashMap;
 
-public class FlightCountMapper extends Mapper<String, String, String, String> {
+public class FlightCountMapper extends Mapper<String, String> {
 
     @Override
     public void map() {

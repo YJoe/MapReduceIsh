@@ -5,9 +5,9 @@ import javafx.util.Pair;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public abstract class Mapper<I1, I2, O1, O2> extends Thread{
-    public ArrayList<HashMap<I1, I2>> input;
-    protected ArrayList<Pair<O1, O2>> output;
+public abstract class Mapper<K, V> extends Thread{
+    public ArrayList<HashMap<K, K>> input;
+    protected ArrayList<Pair<K, V>> output;
 
     public Mapper(){
          output = new ArrayList<>();
@@ -21,7 +21,7 @@ public abstract class Mapper<I1, I2, O1, O2> extends Thread{
 
     protected abstract void map();
 
-    public ArrayList<Pair<O1, O2>> getData(){
+    public ArrayList<Pair<K, V>> getData(){
         return output;
     }
 }

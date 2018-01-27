@@ -3,7 +3,7 @@ package Implement.Objective3;
 import Abstract.Reducer;
 import javafx.util.Pair;
 
-public class PassengerCountReducer extends Reducer<String, Integer, Integer>{
+public class PassengerCountReducer extends Reducer<String, Integer, Integer> {
 
     @Override
     public void reduce() {

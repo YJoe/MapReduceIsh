@@ -2,7 +2,6 @@ package Implement.Objective1;
 
 import Abstract.Reducer;
 import javafx.util.Pair;
-
 import java.util.ArrayList;
 
 public class FlightCountReducer extends Reducer<String, String, Integer> {

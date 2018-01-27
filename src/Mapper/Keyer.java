@@ -2,7 +2,7 @@ package Mapper;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public abstract class Mapper<K, V> extends Thread{
+public abstract class Keyer<K, V> extends Thread{
     ArrayList<HashMap<K, V>> mappedData;
     ArrayList<ArrayList<V>> data;
     ArrayList<K> mappingKeys;
