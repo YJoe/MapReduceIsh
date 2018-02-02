@@ -17,8 +17,8 @@ public class AirportInputMapper extends Keyer<String, String> {
         regexRules = new ArrayList<String>(){{
             add("[A-Z| |/]{3,20}");
             add("[A-Z]{3}");
-            add("(-|)\\d{1,3}.\\d{1,13}");
-            add("(-|)\\d{1,3}.\\d{1,13}");
+            add("(-|)\\d{1,2}.\\d{6}");
+            add("(-|)\\d{1,3}.\\d{6}");
         }};
     }
 

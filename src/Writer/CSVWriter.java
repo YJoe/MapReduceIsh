@@ -14,6 +14,7 @@ public class CSVWriter<T> {
         try { writer = new PrintWriter(fileName, "UTF-8"); }
         catch (FileNotFoundException | UnsupportedEncodingException e) { e.printStackTrace();}
         assert writer != null;
+        System.out.println("Writing data to [" + fileName + "]");
         writer.println(headings);
         for(int i = 0; i < data.size(); i++){
             writer.println(data.get(i).getKey() + ", " + data.get(i).getValue().toString());
