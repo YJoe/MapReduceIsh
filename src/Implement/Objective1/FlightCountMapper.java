@@ -9,6 +9,6 @@ public class FlightCountMapper extends Mapper<String, String> {
     @Override
     public void map() {
         for (HashMap<String, String> anInput : input) {
-            output.add(new Pair<>(anInput.get("start_iata"), anInput.get("flight_id")));
+            output.add(new Pair<>(anInput.get("iata"), anInput.get("flight_id")));
         }
     }}

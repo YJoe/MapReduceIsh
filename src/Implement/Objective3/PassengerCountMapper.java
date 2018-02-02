@@ -4,12 +4,14 @@ import Abstract.Mapper;
 import javafx.util.Pair;
 import java.util.HashMap;
 
-public class PassengerCountMapper extends Mapper<String, Integer> {
+public class PassengerCountMapper extends Mapper<String, String> {
 
     @Override
     public void map() {
         for (HashMap<String, String> anInput : input) {
-            output.add(new Pair<>(anInput.get("flight_id"), 1));
+            if(anInput.get("flight_id") != null){
+                output.add(new Pair<>(anInput.get("flight_id"), anInput.get("passenger_id")));
+            }
         }
     }
 }

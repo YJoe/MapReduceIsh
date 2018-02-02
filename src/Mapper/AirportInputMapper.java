@@ -3,10 +3,10 @@ package Mapper;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class AirportKeyer extends Keyer<String, String> {
+public class AirportInputMapper extends Keyer<String, String> {
     private ArrayList<String> regexRules;
 
-    public AirportKeyer(ArrayList<ArrayList<String>> data) {
+    public AirportInputMapper(ArrayList<ArrayList<String>> data) {
         this.data = data;
         mappingKeys = new ArrayList<String>() {{
             add("airpot_name");
@@ -15,7 +15,7 @@ public class AirportKeyer extends Keyer<String, String> {
             add("logitude");
         }};
         regexRules = new ArrayList<String>(){{
-            add("[A-Z| ]{1,20}");
+            add("[A-Z| |/]{3,20}");
             add("[A-Z]{3}");
             add("(-|)\\d{1,3}.\\d{1,13}");
             add("(-|)\\d{1,3}.\\d{1,13}");
@@ -41,6 +41,7 @@ public class AirportKeyer extends Keyer<String, String> {
             }
             for (int j = 0; j < regexRules.size(); j++) {
                 if (!data.get(i).get(j).matches(regexRules.get(j))) {
+                    System.out.println("Removing [" + data.get(i) + "] failed on validation [" + mappingKeys.get(j) + " (" + regexRules.get(j) + ")]");
                     data.remove(i);
                     break;
                 }

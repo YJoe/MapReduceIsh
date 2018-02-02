@@ -19,7 +19,7 @@ public class FlightCountReducer extends Reducer<String, String, Integer> {
                 }
             }
 
-            if(!seen){
+            if(!seen && input.getValue().get(i) != null){
                 seenFlights.add(input.getValue().get(i));
             }
         }

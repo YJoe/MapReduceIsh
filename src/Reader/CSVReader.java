@@ -36,23 +36,23 @@ public class CSVReader <T>{
     }
 
     public ArrayList<ArrayList<ArrayList<T>>> splitDataToPiles(int pileCount){
-        System.out.println("Splitting data");
+        //System.out.println("Splitting data");
         if (dataHasBeenSplit){
-            System.out.println("\tData has already been split");
+            //System.out.println("\tData has already been split");
             throw new Error("Data has already been split");
         }
-        System.out.println("\tsplitting data into [" + pileCount + "] piles");
-        System.out.println("\tdata size [" + data.size() + "]");
+        //System.out.println("\tsplitting data into [" + pileCount + "] piles");
+        //System.out.println("\tdata size [" + data.size() + "]");
 
         if(pileCount > data.size()){
             pileCount = data.size();
-            System.out.println("\tthat's just stupid, you want more piles than you have data, pile count " +
-                    "has been reduced to the data size to avoid empty array lists");
+            //System.out.println("\tthat's just stupid, you want more piles than you have data, pile count " +
+            //        "has been reduced to the data size to avoid empty array lists");
         }
 
-        System.out.println("\tsplitting data into [" + pileCount + "] piles");
-        System.out.println("\tpile sizes will be at least [" + data.size() / pileCount + "] elements big");
-        System.out.println("\tthe remaining [" + data.size() % pileCount + "] data elements will be split onto the first few piles");
+        //System.out.println("\tsplitting data into [" + pileCount + "] piles");
+        //System.out.println("\tpile sizes will be at least [" + data.size() / pileCount + "] elements big");
+        //System.out.println("\tthe remaining [" + data.size() % pileCount + "] data elements will be split onto the first few piles");
         int dataIndex = 0;
 
         // for however many piles we want, add a new pile array list and add a chunk of the data to that list

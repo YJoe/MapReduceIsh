@@ -7,24 +7,24 @@ import javafx.util.Pair;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class MapReduceJob<X, Y, Z> {
+public class MapReduceJob<K, V1, V2> {
 
     public MapReduceJob() {}
 
-    public ArrayList<Pair<X, Z>> execute(ArrayList<ArrayList<HashMap<X, X>>> input,
-                        Class<? extends Mapper<X, Y>> mapper,
-                        Class<? extends Reducer<X, Y, Z>> reducer) // was ist das?
+    public ArrayList<Pair<K, V2>> execute(ArrayList<ArrayList<HashMap<K, K>>> input,
+                                          Class<? extends Mapper<K, V1>> mapper,
+                                          Class<? extends Reducer<K, V1, V2>> reducer)
             throws IllegalAccessException, InstantiationException {
 
         // define containers for threads and output values
-        ArrayList<Mapper<X, Y>> mappers = new ArrayList<>();
-        ArrayList<Combiner<X, Y>> combiners = new ArrayList<>();
-        ArrayList<Reducer<X, Y, Z>> reducers = new ArrayList<>();
-        ArrayList<Pair<X, ArrayList<Y>>> combinerOutput = new ArrayList<>();
-        ArrayList<Pair<X, Z>> reducedValues = new ArrayList<>();
+        ArrayList<Mapper<K, V1>> mappers = new ArrayList<>();
+        ArrayList<Combiner<K, V1>> combiners = new ArrayList<>();
+        ArrayList<Reducer<K, V1, V2>> reducers = new ArrayList<>();
+        ArrayList<Pair<K, ArrayList<V1>>> combinerOutput = new ArrayList<>();
+        ArrayList<Pair<K, V2>> reducedValues = new ArrayList<>();
 
         // create and start mapping threads
-        for (ArrayList<HashMap<X, X>> anInput : input) {
+        for (ArrayList<HashMap<K, K>> anInput : input) {
             mappers.add(mapper.newInstance());
             mappers.get(mappers.size() - 1).input = anInput;
             mappers.get(mappers.size() - 1).start();
@@ -34,21 +34,19 @@ public class MapReduceJob<X, Y, Z> {
         for (int i = 0; i < mappers.size(); i++) {
             try { mappers.get(i).join(); }
             catch (InterruptedException e) { e.printStackTrace(); }
-//            System.out.println(mappers.get(i).getData());
-//            throw new Error();
             combiners.add(new Combiner<>(mappers.get(i).getData()));
             combiners.get(combiners.size() - 1).start();
         }
 
         // join combiner threads
-        for (Combiner<X, Y> combiner : combiners) {
+        for (Combiner<K, V1> combiner : combiners) {
             try { combiner.join(); }
             catch (InterruptedException e) { e.printStackTrace(); }
             combinerOutput.addAll(combiner.getOutput());
         }
 
         // shuffle outputs
-        Shuffler<X, Y> shuffler = new Shuffler<>();
+        Shuffler<K, V1> shuffler = new Shuffler<>();
         shuffler.shuffle(combinerOutput);
 
         // for all shuffled elements start a reducer thread

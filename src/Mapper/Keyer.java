@@ -7,7 +7,7 @@ public abstract class Keyer<K, V> extends Thread{
     ArrayList<ArrayList<V>> data;
     ArrayList<K> mappingKeys;
 
-    void map(){
+    protected void map(){
         mappedData = new ArrayList<>();
         for (ArrayList<V> aData : data) {
 

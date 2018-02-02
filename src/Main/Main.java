@@ -7,9 +7,7 @@ import Implement.Objective2.PassengerFlightMapper;
 import Implement.Objective2.PassengerFlightReducer;
 import Implement.Objective3.PassengerCountMapper;
 import Implement.Objective3.PassengerCountReducer;
-import Mapper.AirportKeyer;
-import Mapper.PassengerKeyer;
-import Implement.Joiner;
+import Mapper.*;
 import Reader.CSVReader;
 import javafx.util.Pair;
 
@@ -31,35 +29,31 @@ public class Main {
         CSVReader<String> airportReader = new CSVReader<>("/Top30_airports_LatLong.csv");
 
         // get x amount of groups of each data sets
-        int splitCount = 4;
+        int splitCount = 1;
         ArrayList<ArrayList<ArrayList<String>>> passengerData = passengerReader.splitDataToPiles(splitCount);
-        ArrayList<ArrayList<ArrayList<String>>> airportData = airportReader.splitDataToPiles(splitCount);
+        ArrayList<ArrayList<ArrayList<String>>> airportData = airportReader.splitDataToPiles(1);
 
-        // create and start mapping threads
-        ArrayList<PassengerKeyer> passengerMappers = new ArrayList<>();
-        ArrayList<AirportKeyer> airportMappers = new ArrayList<>();
-        for (int i = 0; i < splitCount; i++) {
-            passengerMappers.add(new PassengerKeyer(passengerData.get(i)));
+        // validate the airport data on a single thread
+        AirportInputMapper airportMapper = new AirportInputMapper(airportData.get(0));
+        airportMapper.start();
+        try { airportMapper.join();}
+        catch (InterruptedException e) {e.printStackTrace();}
+
+        // validate the passenger data across multiple threads passing the entire airport data to each
+        ArrayList<PassengerInputMapper> passengerMappers = new ArrayList<>();
+        for (ArrayList<ArrayList<String>> aPassengerData : passengerData) {
+            passengerMappers.add(new PassengerInputMapper(aPassengerData, airportMapper.getData()));
             passengerMappers.get(passengerMappers.size() - 1).start();
-            airportMappers.add(new AirportKeyer(airportData.get(i)));
-            airportMappers.get(airportMappers.size() - 1).start();
         }
 
-        // join mapper threads and get the validated data
-        Joiner<String, String> joiner = new Joiner<>();
         ArrayList<ArrayList<HashMap<String, String>>> passengerMappedData = new ArrayList<>();
-        for (int i = 0; i < splitCount; i++) {
-            try {
-                passengerMappers.get(i).join();
-                airportMappers.get(i).join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        for(int i = 0; i < passengerMappers.size(); i++){
+            try {passengerMappers.get(i).join(); }
+            catch (InterruptedException e) { e.printStackTrace();}
             passengerMappedData.add(passengerMappers.get(i).getData());
         }
 
-
-        int objective = 1;
+        int objective = 2;
 
         if(objective == 1){
             MapReduceJob<String, String, Integer> m = new MapReduceJob<>();
@@ -90,7 +84,7 @@ public class Main {
         }
 
         else if(objective == 3){
-            MapReduceJob<String, Integer, Integer> m = new MapReduceJob<>();
+            MapReduceJob<String, String, Integer> m = new MapReduceJob<>();
             ArrayList<Pair<String, Integer>> results = new ArrayList<>();
             try {
                 results = m.execute(passengerMappedData, PassengerCountMapper.class, PassengerCountReducer.class);
