@@ -25,7 +25,7 @@ public class PassengerFlightReducer extends Reducer<String, HashMap<String, Stri
 
         StringBuilder passengers = new StringBuilder();
         for(int i = 0; i < input.getValue().size(); i++){
-            passengers.append(input.getValue().get(i).get("passenger_id")).append(", ");
+            passengers.append(input.getValue().get(i).get("passenger_id")).append("|");
         }
 
         output = new Pair<>(input.getKey(), str + passengers);

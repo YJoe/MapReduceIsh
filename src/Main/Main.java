@@ -9,8 +9,12 @@ import Implement.Objective3.PassengerCountMapper;
 import Implement.Objective3.PassengerCountReducer;
 import Mapper.*;
 import Reader.CSVReader;
+import Writer.CSVWriter;
 import javafx.util.Pair;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -53,48 +57,34 @@ public class Main {
             passengerMappedData.add(passengerMappers.get(i).getData());
         }
 
-        int objective = 2;
+        // objective jobs
+        int objective = 1;
 
         if(objective == 1){
             MapReduceJob<String, String, Integer> m = new MapReduceJob<>();
             ArrayList<Pair<String, Integer>> results = new ArrayList<>();
-            try {
-                results = m.execute(passengerMappedData, FlightCountMapper.class, FlightCountReducer.class);
-            } catch (IllegalAccessException | InstantiationException e) {
-                e.printStackTrace();
-            }
-
-            for (Pair<String, Integer> result : results) {
-                System.out.println(result);
-            }
+            try {results = m.execute(passengerMappedData, FlightCountMapper.class, FlightCountReducer.class); }
+            catch (IllegalAccessException | InstantiationException e) {e.printStackTrace();}
+            CSVWriter<Integer> writer = new CSVWriter<>();
+            writer.writeToFile("objective1.csv", "IATA, Flight Count", results);
         }
 
         else if(objective == 2){
             MapReduceJob<String, HashMap<String, String>, String> m = new MapReduceJob<>();
             ArrayList<Pair<String, String>> results = new ArrayList<>();
-            try {
-                results = m.execute(passengerMappedData, PassengerFlightMapper.class, PassengerFlightReducer.class);
-            } catch (IllegalAccessException | InstantiationException e) {
-                e.printStackTrace();
-            }
-
-            for (Pair<String, String> result : results) {
-                System.out.println(result);
-            }
+            try { results = m.execute(passengerMappedData, PassengerFlightMapper.class, PassengerFlightReducer.class);}
+            catch (IllegalAccessException | InstantiationException e) {e.printStackTrace();}
+            CSVWriter<String> writer = new CSVWriter<>();
+            writer.writeToFile("objective2.csv", "Flight ID, Start IATA, End IATA, Departure Time, Arrival Time, Flight Time, Passenger IDs", results);
         }
 
         else if(objective == 3){
             MapReduceJob<String, String, Integer> m = new MapReduceJob<>();
             ArrayList<Pair<String, Integer>> results = new ArrayList<>();
-            try {
-                results = m.execute(passengerMappedData, PassengerCountMapper.class, PassengerCountReducer.class);
-            } catch (IllegalAccessException | InstantiationException e) {
-                e.printStackTrace();
-            }
-
-            for (Pair<String, Integer> result : results) {
-                System.out.println(result);
-            }
+            try {results = m.execute(passengerMappedData, PassengerCountMapper.class, PassengerCountReducer.class);}
+            catch (IllegalAccessException | InstantiationException e) { e.printStackTrace();}
+            CSVWriter<Integer> writer = new CSVWriter<>();
+            writer.writeToFile("objective3.csv", "Flight ID, Passenger Count", results);
         }
     }
 }
