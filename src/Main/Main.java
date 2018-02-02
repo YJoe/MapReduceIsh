@@ -70,15 +70,15 @@ public class Main {
         }
 
         else if(objective == 2){
-            MapReduceJob<String, HashMap<String, String>, ArrayList<HashMap<String, String>>> m = new MapReduceJob<>();
-            ArrayList<Pair<String, ArrayList<HashMap<String, String>>>> results = new ArrayList<>();
+            MapReduceJob<String, HashMap<String, String>, String> m = new MapReduceJob<>();
+            ArrayList<Pair<String, String>> results = new ArrayList<>();
             try {
                 results = m.execute(passengerMappedData, PassengerFlightMapper.class, PassengerFlightReducer.class);
             } catch (IllegalAccessException | InstantiationException e) {
                 e.printStackTrace();
             }
 
-            for (Pair<String, ArrayList<HashMap<String, String>>> result : results) {
+            for (Pair<String, String> result : results) {
                 System.out.println(result);
             }
         }
