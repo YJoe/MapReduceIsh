@@ -26,9 +26,12 @@ public class CSVReader <T>{
 
         // while there is a line to read
         while (s.hasNext()){
+
+            // split the line on "," to get a list of elements
             stringData.add(new ArrayList<>(Arrays.asList(s.nextLine().split(","))));
             data.add(new ArrayList<>());
 
+            // add each element of the result to the data list
             for(int i = 0; i < stringData.get(stringData.size() - 1).size(); i++){
                 data.get(data.size() - 1).add((T)stringData.get(stringData.size() - 1).get(i));
             }
@@ -36,23 +39,17 @@ public class CSVReader <T>{
     }
 
     public ArrayList<ArrayList<ArrayList<T>>> splitDataToPiles(int pileCount){
-        //System.out.println("Splitting data");
+
+        // make sure we aren't being silly and splitting again
         if (dataHasBeenSplit){
-            //System.out.println("\tData has already been split");
             throw new Error("Data has already been split");
         }
-        //System.out.println("\tsplitting data into [" + pileCount + "] piles");
-        //System.out.println("\tdata size [" + data.size() + "]");
 
+        // if there isn't enough data to spread across the threads just reduce the number of threads
         if(pileCount > data.size()){
             pileCount = data.size();
-            //System.out.println("\tthat's just stupid, you want more piles than you have data, pile count " +
-            //        "has been reduced to the data size to avoid empty array lists");
-        }
+         }
 
-        //System.out.println("\tsplitting data into [" + pileCount + "] piles");
-        //System.out.println("\tpile sizes will be at least [" + data.size() / pileCount + "] elements big");
-        //System.out.println("\tthe remaining [" + data.size() % pileCount + "] data elements will be split onto the first few piles");
         int dataIndex = 0;
 
         // for however many piles we want, add a new pile array list and add a chunk of the data to that list
@@ -63,26 +60,12 @@ public class CSVReader <T>{
             }
         }
 
+        // for the remaining data elements that weren't added to a thread, add them to the first n threads
         for(int i = 0; i < data.size() % pileCount; i++){
             splitData.get(i).add(data.get(dataIndex++));
         }
 
         dataHasBeenSplit = true;
         return splitData;
-    }
-
-    public void printData(){
-        if(!dataHasBeenSplit) {
-            for (int i = 0; i < data.size(); i++) {
-                System.out.println("data element = " + data.get(i));
-            }
-        } else {
-            for(int i = 0; i < splitData.size(); i++){
-                System.out.println("pile [" + i + "]");
-                for(int j = 0; j < splitData.get(i).size(); j++){
-                    System.out.println("\tdata element = " + splitData.get(i).get(j));
-                }
-            }
-        }
     }
 }

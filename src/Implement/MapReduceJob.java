@@ -22,6 +22,7 @@ public class MapReduceJob<K, V1, V2> {
         ArrayList<Reducer<K, V1, V2>> reducers = new ArrayList<>();
         ArrayList<Pair<K, ArrayList<V1>>> combinerOutput = new ArrayList<>();
         ArrayList<Pair<K, V2>> reducedValues = new ArrayList<>();
+        ArrayList<Pair<K, ArrayList<V1>>> shufflerOutput = new ArrayList<>();
 
         // create and start mapping threads
         for (ArrayList<HashMap<K, K>> anInput : input) {
@@ -47,12 +48,12 @@ public class MapReduceJob<K, V1, V2> {
 
         // shuffle outputs
         Shuffler<K, V1> shuffler = new Shuffler<>();
-        shuffler.shuffle(combinerOutput);
+        shufflerOutput = shuffler.shuffle(combinerOutput);
 
         // for all shuffled elements start a reducer thread
-        for(int i = 0; i < shuffler.output.size(); i++){
+        for(int i = 0; i < shufflerOutput.size(); i++){
             reducers.add(reducer.newInstance());
-            reducers.get(reducers.size() - 1).input = shuffler.output.get(i);
+            reducers.get(reducers.size() - 1).input = shufflerOutput.get(i);
             reducers.get(reducers.size() - 1).start();
         }
 
