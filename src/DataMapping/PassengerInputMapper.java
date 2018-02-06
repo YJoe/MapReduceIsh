@@ -1,4 +1,4 @@
-package Mapper;
+package DataMapping;
 
 import java.util.ArrayList;
 import java.util.HashMap;

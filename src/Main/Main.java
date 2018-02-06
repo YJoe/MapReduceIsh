@@ -7,7 +7,7 @@ import Implement.Objective2.PassengerFlightMapper;
 import Implement.Objective2.PassengerFlightReducer;
 import Implement.Objective3.PassengerCountMapper;
 import Implement.Objective3.PassengerCountReducer;
-import Mapper.*;
+import DataMapping.*;
 import Reader.CSVReader;
 import Writer.CSVWriter;
 import javafx.util.Pair;
@@ -23,7 +23,7 @@ public class Main {
         CSVReader<String> airportReader = new CSVReader<>("/Top30_airports_LatLong.csv");
 
         // get x amount of groups of each data sets
-        int splitCount = 1;
+        int splitCount = Runtime.getRuntime().availableProcessors();
         ArrayList<ArrayList<ArrayList<String>>> passengerData = passengerReader.splitDataToPiles(splitCount);
         ArrayList<ArrayList<ArrayList<String>>> airportData = airportReader.splitDataToPiles(1);
 

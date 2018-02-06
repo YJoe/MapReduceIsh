@@ -1,9 +1,11 @@
 IATA, Flight Count
-ATL, 1
+ATL, 2
 PEK, 1
-ORD, 1
+LHR, 1
+ORD, 2
 HND, 1
 LAX, 0
+CDG, 1
 DFW, 1
 FRA, 0
 HKG, 0
@@ -12,15 +14,18 @@ DXB, 0
 CGK, 2
 AMS, 1
 MAD, 1
-BKK, 0
+BKK, 1
 JFK, 1
 SIN, 0
 CAN, 2
+LAS, 1
 PVG, 1
 SFO, 0
 PHX, 0
 IAH, 2
+CLT, 1
+MIA, 1
 MUC, 1
-KUL, 1
-FCO, 0
+KUL, 2
+FCO, 1
 IST, 0

@@ -1,4 +1,4 @@
-package Mapper;
+package DataMapping;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,15 +14,15 @@ public class AirportInputMapper extends DataMapper<String, String> {
             add("airpot_name");
             add("iata");
             add("latitude");
-            add("logitude");
+            add("lonitude");
         }};
 
         // define problem specific regex rules for the airport data validation
         regexRules = new ArrayList<String>(){{
             add("[A-Z| |/]{3,20}");
             add("[A-Z]{3}");
-            add("(-|)\\d{1,2}.\\d{6}");
-            add("(-|)\\d{1,3}.\\d{6}");
+            add("(-|)\\d{1,2}.\\d{0,6}");
+            add("(-|)\\d{1,3}.\\d{0,6}");
         }};
     }
 

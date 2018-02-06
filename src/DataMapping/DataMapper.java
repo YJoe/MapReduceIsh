@@ -1,4 +1,4 @@
-package Mapper;
+package DataMapping;
 import Abstract.Mapper;
 
 import java.util.ArrayList;
