@@ -6,8 +6,18 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
+/**
+ * A simple class to write CSV data to a file
+ * @param <K> Key type
+ * @param <V> Value type
+ */
 public class CSVWriter<K, V> {
 
+    /**
+     * @param fileName file location to write the data
+     * @param headings a collection of csv headings that describe the data
+     * @param data the data to write to the file
+     */
     public void writeToFile(String fileName, String headings, ArrayList<Pair<K, V>> data){
 
         // create a print writer

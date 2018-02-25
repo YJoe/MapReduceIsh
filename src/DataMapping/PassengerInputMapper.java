@@ -3,10 +3,20 @@ package DataMapping;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * A Mapper for the passenger data.
+ * Extends Data Mapper with the types String, String
+ */
 public class PassengerInputMapper extends DataMapper<String, String> {
     private ArrayList<String> regexRules;
     private ArrayList<HashMap<String, String>> airportData;
 
+    /**
+     * Initialises the object with the business specific Regex Commands to be used
+     *
+     * @param data Passenger data as an ArrayList of ArrayList Strings to be mapped
+     * @param airportData Airport data to validate passengers against for consistency
+     */
     public PassengerInputMapper(ArrayList<ArrayList<String>> data, ArrayList<HashMap<String, String>> airportData){
         this.data = data;
         this.airportData = airportData;
@@ -32,11 +42,17 @@ public class PassengerInputMapper extends DataMapper<String, String> {
         }};
     }
 
+    /**
+     * @return Mapped and validated data
+     */
     @Override
     public ArrayList<HashMap<String, String>> getValidatedData() {
         return mappedData;
     }
 
+    /**
+     * Child implementation of the parent DataMapper to insert extra logic for left joining data
+     */
     protected void map(){
 
         // validate the passenger data against various regex rules

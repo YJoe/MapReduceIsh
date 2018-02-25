@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="MapReduceIsh:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/MapReduceIsh_jar</output-path>
+    <root id="archive" name="MapReduceIsh.jar">
+      <element id="module-output" name="MapReduceIsh" />
+    </root>
+  </artifact>
+</component>

@@ -4,8 +4,15 @@ import Abstract.Reducer;
 import javafx.util.Pair;
 import java.util.ArrayList;
 
+/**
+ * Implementation of the Abstract Reducer using types String, String, Integer
+ */
 public class FlightCountReducer extends Reducer<String, String, Integer> {
 
+    /**
+     * Implementation of the Abstract reduce function of Reducer
+     * Counts flights found for a given Airport IATA
+     */
     @Override
     public void reduce() {
         ArrayList<String> seenFlights = new ArrayList<>();

@@ -3,14 +3,27 @@ package Implement;
 import Abstract.Mapper;
 import Abstract.Reducer;
 import javafx.util.Pair;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
+
+/**
+ * A controller of the process of a MapReduce job, combining the workflow in a simple user class
+ * @param <K> Data key type
+ * @param <V1> Value one type
+ * @param <V2> Value two type
+ */
 public class MapReduceJob<K, V1, V2> {
 
-    public MapReduceJob() {}
-
+    /**
+     * The execution of a MapReduceJob calling each stage of the workflow and providing the output of the reducer
+     * @param input ArrayList of ArrayList HashMaps, all data to be split between threads
+     * @param mapper The Mapper class type to instantiate Mapper objects with
+     * @param reducer The Reducer class type to instantiate Reducer objects with
+     * @return The formatted CSV output of the Reducer
+     * @throws IllegalAccessException Thrown if access to a variable is not granted to an operation
+     * @throws InstantiationException Thrown if the Classes passed "mapper" or "reducer" cannot be instantiated
+     */
     public ArrayList<Pair<K, V2>> execute(ArrayList<ArrayList<HashMap<K, K>>> input,
                                           Class<? extends Mapper<K, V1>> mapper,
                                           Class<? extends Reducer<K, V1, V2>> reducer)

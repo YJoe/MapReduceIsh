@@ -4,8 +4,15 @@ import Abstract.Mapper;
 import javafx.util.Pair;
 import java.util.HashMap;
 
+/**
+ * Implementation of the Abstract Mapper using the types String and String
+ */
 public class PassengerCountMapper extends Mapper<String, String> {
 
+    /**
+     * Implementation of the abstract map function in Mapper
+     * Maps FlightIDs to the PassengerID of an entry assuming the flight is not null
+     */
     @Override
     public void map() {
 

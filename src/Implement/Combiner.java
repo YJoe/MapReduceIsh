@@ -3,23 +3,39 @@ package Implement;
 import javafx.util.Pair;
 import java.util.ArrayList;
 
+/**
+ * Generic Combiner used by all objectives within the MapReduceJob class
+ * @param <K> Data Key
+ * @param <V> Data Value
+ */
 public class Combiner<K, V> extends Thread {
     ArrayList<Pair<K, V>> input;
     ArrayList<Pair<K, ArrayList<V>>> output;
 
+
+    /**
+     * Constructor for the Combiner Thread
+     * @param input Input ArrayList of pairs to be combined
+     */
     public Combiner(ArrayList<Pair<K, V>> input){
         this.input = input;
     }
 
+    /**
+     * Override of Thread - run() used to call the combine function
+     */
     @Override
     public void run(){
         super.run();
         combine();
     }
 
+    /**
+     * Generic combiner function that combines data values by common keys
+     */
     private void combine(){
 
-        // define the output arraylist and means of recording seen keys
+        // define the output Arraylist and means of recording seen keys
         output = new ArrayList<>();
         ArrayList<K> seenKeys = new ArrayList<>();
 
@@ -44,7 +60,7 @@ public class Combiner<K, V> extends Thread {
                 }
             }
 
-            // if we didn't find the input ket in the list of sene keys
+            // if we didn't find the input ket in the list of seen keys
             if(!found){
 
                 // record that we have seen this key
@@ -58,6 +74,9 @@ public class Combiner<K, V> extends Thread {
         }
     }
 
+    /**
+     * @return An output of unique keys with an ArrayList of data
+     */
     public ArrayList<Pair<K, ArrayList<V>>> getOutput(){
         return output;
     }

@@ -19,8 +19,8 @@ public class Main {
     public static void main(String[] args) {
 
         // the data we want to read in can be string
-        CSVReader<String> passengerReader = new CSVReader<>("/AComp_Passenger_data.csv");
-        CSVReader<String> airportReader = new CSVReader<>("/Top30_airports_LatLong.csv");
+        CSVReader<String> passengerReader = new CSVReader<>("data/AComp_Passenger_data.csv");
+        CSVReader<String> airportReader = new CSVReader<>("data/Top30_airports_LatLong.csv");
 
         // get x amount of groups of each data sets
         int splitCount = Runtime.getRuntime().availableProcessors();
@@ -54,7 +54,7 @@ public class Main {
         try {results1 = m1.execute(passengerMappedData, FlightCountMapper.class, FlightCountReducer.class); }
         catch (IllegalAccessException | InstantiationException e) {e.printStackTrace();}
         CSVWriter<String, Integer> writer1 = new CSVWriter<>();
-        writer1.writeToFile("objective1.csv", "IATA, Flight Count", results1);
+        writer1.writeToFile("objective_1_result.csv", "IATA, Flight Count", results1);
 
         // objective 2
         MapReduceJob<String, HashMap<String, String>, String> m2 = new MapReduceJob<>();
@@ -62,7 +62,7 @@ public class Main {
         try { results2 = m2.execute(passengerMappedData, PassengerFlightMapper.class, PassengerFlightReducer.class);}
         catch (IllegalAccessException | InstantiationException e) {e.printStackTrace();}
         CSVWriter<String, String> writer2 = new CSVWriter<>();
-        writer2.writeToFile("objective2.csv", "Flight ID, Start IATA, End IATA, Departure Time, Arrival Time, Flight Time, Passenger IDs", results2);
+        writer2.writeToFile("objective_2_result.csv", "Flight ID, Start IATA, End IATA, Departure Time, Arrival Time, Flight Time, Passenger IDs", results2);
 
         // objective 3
         MapReduceJob<String, String, Integer> m3 = new MapReduceJob<>();
@@ -70,6 +70,6 @@ public class Main {
         try {results3 = m3.execute(passengerMappedData, PassengerCountMapper.class, PassengerCountReducer.class);}
         catch (IllegalAccessException | InstantiationException e) { e.printStackTrace();}
         CSVWriter<String, Integer> writer3 = new CSVWriter<>();
-        writer3.writeToFile("objective3.csv", "Flight ID, Passenger Count", results3);
+        writer3.writeToFile("objective_3_result.csv", "Flight ID, Passenger Count", results3);
     }
 }

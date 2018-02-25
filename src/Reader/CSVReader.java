@@ -1,15 +1,24 @@
 package Reader;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
+/**
+ * A simple class to simplify the reading of CSV Data
+ * @param <T> Data type, typically String for these objectives
+ */
 public class CSVReader <T>{
     private ArrayList<ArrayList<T>> data;
     private ArrayList<ArrayList<String>> stringData;
     private ArrayList<ArrayList<ArrayList<T>>> splitData;
     private boolean dataHasBeenSplit;
 
+    /**
+     * @param directory input file location
+     */
     public CSVReader(String directory){
         data = new ArrayList<>();
         stringData = new ArrayList<>();
@@ -18,11 +27,19 @@ public class CSVReader <T>{
         readCSVLSVAsArrayList(directory);
     }
 
+    /**
+     * @param fileDirectory input file location
+     */
     private void readCSVLSVAsArrayList(String fileDirectory){
         System.out.println("Reading data from [" + fileDirectory + "]");
 
         // read the file as a scanner
-        Scanner s = new Scanner(CSVReader.class.getResourceAsStream(fileDirectory));
+        Scanner s = null;
+        try {
+            s = new Scanner(new FileReader(fileDirectory));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 
         // while there is a line to read
         while (s.hasNext()){
@@ -38,6 +55,11 @@ public class CSVReader <T>{
         }
     }
 
+    /**
+     * Splits data into a number of piles for threads to operate on
+     * @param pileCount number of piles to create
+     * @return piles of data to pass to mapper threads
+     */
     public ArrayList<ArrayList<ArrayList<T>>> splitDataToPiles(int pileCount){
 
         // make sure we aren't being silly and splitting again

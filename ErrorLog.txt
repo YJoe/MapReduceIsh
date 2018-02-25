@@ -1,0 +1,107 @@
+[] is not valid because it does not have the correct number of fields
+[SJD8775RZ1, WSK1289Z, CLT, vEN, 1420563542, 278] is not valid because the [end_iata] does not meet the format [[A-Z]{3}]
+[, , , , 0, 0] is not valid because the [passenger_id] does not meet the format [[A-Z]{3}\d{4}[A-Z]{2}\d]
+[, YZO4444S, BKK, MIA, 1420565330, 2027] is not valid because the [passenger_id] does not meet the format [[A-Z]{3}\d{4}[A-Z]{2}\d]
+[ONL0812DH9, BER7172M, KUL, [AS, 1420565167, 1848] is not valid because the [end_iata] does not meet the format [[A-Z]{3}]
+[, , , , 0, 0] is not valid because the [passenger_id] does not meet the format [[A-Z]{3}\d{4}[A-Z]{2}\d]
+[DAZ3030XA0, WPW9201U, DFW, yEK, 1420564869, 1452] is not valid because the [end_iata] does not meet the format [[A-Z]{3}]
+[, , , , 0, 0] is not valid because the [passenger_id] does not meet the format [[A-Z]{3}\d{4}[A-Z]{2}\d]
+[YMH6360YP5, ATT7791R, A;S, DEN, 1420564394, 1001] is not valid because the [start_iata] does not meet the format [[A-Z]{3}]
+[PAJ3974RK6, EWH6301Y, ~AN, DFW, 1420564967, 1683] is not valid because the [start_iata] does not meet the format [[A-Z]{3}]
+[CKZ3132BR0, RUM0422W, MUC, ;AD, 1420563539, 194] is not valid because the [end_iata] does not meet the format [[A-Z]{3}]
+[, , , , 0, 0] is not valid because the [passenger_id] does not meet the format [[A-Z]{3}\d{4}[A-Z]{2}\d]
+[WYU2010YH6, XIL3623J, PEe, LAX, 1420564414, 1302] is not valid because the [start_iata] does not meet the format [[A-Z]{3}]
+[WTC9125IE6, XIL3623J, PEK, L}X, 1420564414, 1302] is not valid because the [end_iata] does not meet the format [[A-Z]{3}]
+[BWI0521BG2, VYW5940P, LAS, SI|, 1420565203, 1843] is not valid because the [end_iata] does not meet the format [[A-Z]{3}]
+[, , , , 0, 0] is not valid because the [passenger_id] does not meet the format [[A-Z]{3}\d{4}[A-Z]{2}\d]
+[PUD8209OG1, SOH3431A, OR8, MIA, 1420563649, 250] is not valid because the [start_iata] does not meet the format [[A-Z]{3}]
+{start_iata=JFK, passenger_id=SJD8775RZ4, flight_time=802, end_iata=FSA, departure_time=1420563917, flight_id=XXQ4064B} is not valid because the to airport [FSA] does not exist
+airport {iata=LAX, lonitude=-118.408075, airpot_name=LOS ANGELES, latitude=33.942536} was not found, giving it its own row
+airport {iata=FRA, lonitude=8.543125, airpot_name=FRANKFURT, latitude=50.026421} was not found, giving it its own row
+airport {iata=HKG, lonitude=113.914603, airpot_name=HONG KONG, latitude=22.308919} was not found, giving it its own row
+airport {iata=DXB, lonitude=55.364444, airpot_name=DUBAI, latitude=25.252778} was not found, giving it its own row
+airport {iata=SIN, lonitude=103.994433, airpot_name=SINGAPORE, latitude=1.350189} was not found, giving it its own row
+airport {iata=SFO, lonitude=-122.374889, airpot_name=SAN FRANCISCO, latitude=37.618972} was not found, giving it its own row
+airport {iata=PHX, lonitude=-112.011583, airpot_name=PHOENIX, latitude=33.434278} was not found, giving it its own row
+[CKZ313\BR9, XIL3623J, PEK, LAX, 1420564414, 1302] is not valid because the [passenger_id] does not meet the format [[A-Z]{3}\d{4}[A-Z]{2}\d]
+[, , , , 0, 0] is not valid because the [passenger_id] does not meet the format [[A-Z]{3}\d{4}[A-Z]{2}\d]
+airport {iata=LAX, lonitude=-118.408075, airpot_name=LOS ANGELES, latitude=33.942536} was not found, giving it its own row
+airport {iata=IST, lonitude=28.814606, airpot_name=ISTANBUL, latitude=40.976922} was not found, giving it its own row
+airport {iata=FRA, lonitude=8.543125, airpot_name=FRANKFURT, latitude=50.026421} was not found, giving it its own row
+airport {iata=HKG, lonitude=113.914603, airpot_name=HONG KONG, latitude=22.308919} was not found, giving it its own row
+airport {iata=DXB, lonitude=55.364444, airpot_name=DUBAI, latitude=25.252778} was not found, giving it its own row
+airport {iata=SIN, lonitude=103.994433, airpot_name=SINGAPORE, latitude=1.350189} was not found, giving it its own row
+airport {iata=SFO, lonitude=-122.374889, airpot_name=SAN FRANCISCO, latitude=37.618972} was not found, giving it its own row
+airport {iata=PHX, lonitude=-112.011583, airpot_name=PHOENIX, latitude=33.434278} was not found, giving it its own row
+airport {iata=IST, lonitude=28.814606, airpot_name=ISTANBUL, latitude=40.976922} was not found, giving it its own row
+airport {iata=LAX, lonitude=-118.408075, airpot_name=LOS ANGELES, latitude=33.942536} was not found, giving it its own row
+airport {iata=FRA, lonitude=8.543125, airpot_name=FRANKFURT, latitude=50.026421} was not found, giving it its own row
+airport {iata=HKG, lonitude=113.914603, airpot_name=HONG KONG, latitude=22.308919} was not found, giving it its own row
+airport {iata=DXB, lonitude=55.364444, airpot_name=DUBAI, latitude=25.252778} was not found, giving it its own row
+airport {iata=SIN, lonitude=103.994433, airpot_name=SINGAPORE, latitude=1.350189} was not found, giving it its own row
+airport {iata=SFO, lonitude=-122.374889, airpot_name=SAN FRANCISCO, latitude=37.618972} was not found, giving it its own row
+airport {iata=PHX, lonitude=-112.011583, airpot_name=PHOENIX, latitude=33.434278} was not found, giving it its own row
+airport {iata=IST, lonitude=28.814606, airpot_name=ISTANBUL, latitude=40.976922} was not found, giving it its own row
+{start_iata=JFK, passenger_id=SJD8775RZ4, flight_time=802, end_iata=FSA, departure_time=1420563917, flight_id=XXQ4064B} is not valid because the to airport [FSA] does not exist
+[SJD87|76RZ0, ULZ8130D, CAN, DFW, 1420564983, 1683] is not valid because the [passenger_id] does not meet the format [[A-Z]{3}\d{4}[A-Z]{2}\d]
+airport {iata=LAX, lonitude=-118.408075, airpot_name=LOS ANGELES, latitude=33.942536} was not found, giving it its own row
+airport {iata=FRA, lonitude=8.543125, airpot_name=FRANKFURT, latitude=50.026421} was not found, giving it its own row
+airport {iata=HKG, lonitude=113.914603, airpot_name=HONG KONG, latitude=22.308919} was not found, giving it its own row
+airport {iata=DXB, lonitude=55.364444, airpot_name=DUBAI, latitude=25.252778} was not found, giving it its own row
+airport {iata=SIN, lonitude=103.994433, airpot_name=SINGAPORE, latitude=1.350189} was not found, giving it its own row
+airport {iata=SFO, lonitude=-122.374889, airpot_name=SAN FRANCISCO, latitude=37.618972} was not found, giving it its own row
+airport {iata=PHX, lonitude=-112.011583, airpot_name=PHOENIX, latitude=33.434278} was not found, giving it its own row
+airport {iata=IST, lonitude=28.814606, airpot_name=ISTANBUL, latitude=40.976922} was not found, giving it its own row
+[PUD8209OG3, XXQ4064%, JFK, FRA, 1420563917, 802] is not valid because the [flight_id] does not meet the format [[A-Z]{3}\d{4}[A-Z]]
+[, , , , 0, 0] is not valid because the [passenger_id] does not meet the format [[A-Z]{3}\d{4}[A-Z]{2}\d]
+[SJD8775RZ7, 4QU6245R, DEN, FRA, 1420564460, 1049] is not valid because the [flight_id] does not meet the format [[A-Z]{3}\d{4}[A-Z]]
+[CXN7304ER5, GMO593[W, LHR, PEK, 1420564317, 1057] is not valid because the [flight_id] does not meet the format [[A-Z]{3}\d{4}[A-Z]]
+[UES915*GS7, SQU6245R, DEN, FRA, 1420564460, 1049] is not valid because the [passenger_id] does not meet the format [[A-Z]{3}\d{4}[A-Z]{2}\d]
+[, , , , 0, 0] is not valid because the [passenger_id] does not meet the format [[A-Z]{3}\d{4}[A-Z]{2}\d]
+[POP2875LH4, MBw8071P, KUL, PEK, 1420563856, 572] is not valid because the [flight_id] does not meet the format [[A-Z]{3}\d{4}[A-Z]]
+[﻿UES9151GS7, SQU6245R, DEN, FRA, 1420564460, 1049] is not valid because the [passenger_id] does not meet the format [[A-Z]{3}\d{4}[A-Z]{2}\d]
+{start_iata=UGK, passenger_id=SJD8775RZ5, flight_time=849, end_iata=DXB, departure_time=1420563958, flight_id=TMV7633W} is not valid because the from airport [UGK] does not exist
+airport {iata=LAX, lonitude=-118.408075, airpot_name=LOS ANGELES, latitude=33.942536} was not found, giving it its own row
+airport {iata=FRA, lonitude=8.543125, airpot_name=FRANKFURT, latitude=50.026421} was not found, giving it its own row
+airport {iata=HKG, lonitude=113.914603, airpot_name=HONG KONG, latitude=22.308919} was not found, giving it its own row
+airport {iata=DXB, lonitude=55.364444, airpot_name=DUBAI, latitude=25.252778} was not found, giving it its own row
+airport {iata=SIN, lonitude=103.994433, airpot_name=SINGAPORE, latitude=1.350189} was not found, giving it its own row
+airport {iata=SFO, lonitude=-122.374889, airpot_name=SAN FRANCISCO, latitude=37.618972} was not found, giving it its own row
+airport {iata=PHX, lonitude=-112.011583, airpot_name=PHOENIX, latitude=33.434278} was not found, giving it its own row
+airport {iata=IST, lonitude=28.814606, airpot_name=ISTANBUL, latitude=40.976922} was not found, giving it its own row
+{start_iata=UGK, passenger_id=SJD8775RZ5, flight_time=849, end_iata=DXB, departure_time=1420563958, flight_id=TMV7633W} is not valid because the from airport [UGK] does not exist
+airport {iata=LAX, lonitude=-118.408075, airpot_name=LOS ANGELES, latitude=33.942536} was not found, giving it its own row
+airport {iata=FRA, lonitude=8.543125, airpot_name=FRANKFURT, latitude=50.026421} was not found, giving it its own row
+airport {iata=HKG, lonitude=113.914603, airpot_name=HONG KONG, latitude=22.308919} was not found, giving it its own row
+airport {iata=DXB, lonitude=55.364444, airpot_name=DUBAI, latitude=25.252778} was not found, giving it its own row
+airport {iata=SIN, lonitude=103.994433, airpot_name=SINGAPORE, latitude=1.350189} was not found, giving it its own row
+airport {iata=SFO, lonitude=-122.374889, airpot_name=SAN FRANCISCO, latitude=37.618972} was not found, giving it its own row
+airport {iata=PHX, lonitude=-112.011583, airpot_name=PHOENIX, latitude=33.434278} was not found, giving it its own row
+airport {iata=IST, lonitude=28.814606, airpot_name=ISTANBUL, latitude=40.976922} was not found, giving it its own row
+[HGO4350KK8, QHU1140O, CDG, vAS, 1420564498, 1133] is not valid because the [end_iata] does not meet the format [[A-Z]{3}]
+[JJM4725RF4, YZO4444S, BKK, MI^, 1420565330, 2027] is not valid because the [end_iata] does not meet the format [[A-Z]{3}]
+[WYu2011YH2, FYL5866L, ATL, HKG, 1420565140, 1751] is not valid because the [passenger_id] does not meet the format [[A-Z]{3}\d{4}[A-Z]{2}\d]
+[WBE6935NU$, XOY7948U, ATL, LHR, 1420564038, 877] is not valid because the [passenger_id] does not meet the format [[A-Z]{3}\d{4}[A-Z]{2}\d]
+[SJD8775RZ6, HZT2506M, IAH, #MS, 1420564324, 1044] is not valid because the [end_iata] does not meet the format [[A-Z]{3}]
+[, , , , 0, 0] is not valid because the [passenger_id] does not meet the format [[A-Z]{3}\d{4}[A-Z]{2}\d]
+[MXU9187YC0, MOO1786A, MAD, ]RA, 1420563408, 184] is not valid because the [end_iata] does not meet the format [[A-Z]{3}]
+[KKP5277HZ6, VYW5940P, LAS, :IN, 1420565203, 1843] is not valid because the [end_iata] does not meet the format [[A-Z]{3}]
+[SPR4484HA7, ATT7791R, AM%, DEN, 1420564394, 1001] is not valid because the [start_iata] does not meet the format [[A-Z]{3}]
+[, , , , 0, 0] is not valid because the [passenger_id] does not meet the format [[A-Z]{3}\d{4}[A-Z]{2}\d]
+[CXN7304ER8, VDCP164W, FCO, LAS, 1420564698, 1276] is not valid because the [flight_id] does not meet the format [[A-Z]{3}\d{4}[A-Z]]
+airport {iata=LAX, lonitude=-118.408075, airpot_name=LOS ANGELES, latitude=33.942536} was not found, giving it its own row
+airport {iata=FRA, lonitude=8.543125, airpot_name=FRANKFURT, latitude=50.026421} was not found, giving it its own row
+airport {iata=HKG, lonitude=113.914603, airpot_name=HONG KONG, latitude=22.308919} was not found, giving it its own row
+airport {iata=DXB, lonitude=55.364444, airpot_name=DUBAI, latitude=25.252778} was not found, giving it its own row
+airport {iata=SIN, lonitude=103.994433, airpot_name=SINGAPORE, latitude=1.350189} was not found, giving it its own row
+airport {iata=SFO, lonitude=-122.374889, airpot_name=SAN FRANCISCO, latitude=37.618972} was not found, giving it its own row
+airport {iata=PHX, lonitude=-112.011583, airpot_name=PHOENIX, latitude=33.434278} was not found, giving it its own row
+airport {iata=IST, lonitude=28.814606, airpot_name=ISTANBUL, latitude=40.976922} was not found, giving it its own row
+airport {iata=LAX, lonitude=-118.408075, airpot_name=LOS ANGELES, latitude=33.942536} was not found, giving it its own row
+airport {iata=FRA, lonitude=8.543125, airpot_name=FRANKFURT, latitude=50.026421} was not found, giving it its own row
+airport {iata=HKG, lonitude=113.914603, airpot_name=HONG KONG, latitude=22.308919} was not found, giving it its own row
+airport {iata=DXB, lonitude=55.364444, airpot_name=DUBAI, latitude=25.252778} was not found, giving it its own row
+airport {iata=SIN, lonitude=103.994433, airpot_name=SINGAPORE, latitude=1.350189} was not found, giving it its own row
+airport {iata=SFO, lonitude=-122.374889, airpot_name=SAN FRANCISCO, latitude=37.618972} was not found, giving it its own row
+airport {iata=PHX, lonitude=-112.011583, airpot_name=PHOENIX, latitude=33.434278} was not found, giving it its own row
+airport {iata=IST, lonitude=28.814606, airpot_name=ISTANBUL, latitude=40.976922} was not found, giving it its own row

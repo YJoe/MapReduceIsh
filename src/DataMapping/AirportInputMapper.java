@@ -3,9 +3,18 @@ package DataMapping;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * A Mapper for the airport data.
+ * Extends Data Mapper with the types String, String
+ */
 public class AirportInputMapper extends DataMapper<String, String> {
     private ArrayList<String> regexRules;
 
+    /**
+     * Initialises the object with the business specific Regex Commands to be used
+     *
+     * @param data Airport data as an ArrayList of ArrayList Strings to be mapped
+     */
     public AirportInputMapper(ArrayList<ArrayList<String>> data) {
         this.data = data;
 
@@ -26,11 +35,17 @@ public class AirportInputMapper extends DataMapper<String, String> {
         }};
     }
 
+    /**
+     * @return Mapped and validated data
+     */
     @Override
     public ArrayList<HashMap<String, String>> getValidatedData() {
         return mappedData;
     }
 
+    /**
+     * Override of Thread - run() used to call the map function
+     */
     @Override
     public void run() {
 
@@ -41,6 +56,9 @@ public class AirportInputMapper extends DataMapper<String, String> {
         super.run();
     }
 
+    /**
+     * Validation of the input data against RegEx commands defined in the constructor
+     */
     private void validate(){
 
         // cycle through the data backwards so that we can remove elements without disturbing the order

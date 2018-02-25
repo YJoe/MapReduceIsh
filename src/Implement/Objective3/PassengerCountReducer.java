@@ -2,14 +2,18 @@ package Implement.Objective3;
 
 import Abstract.Reducer;
 import javafx.util.Pair;
-
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Collectors;
 
+/**
+ * Implementation of the Abstract Reducer using types String, String, Integer
+ */
 public class PassengerCountReducer extends Reducer<String, String, Integer> {
 
+    /**
+     * Implementation of the Abstract reduce function of Reducer
+     * Creates a unique list of passengers, avoiding counting duplicate entries
+     */
     @Override
     public void reduce() {
 
